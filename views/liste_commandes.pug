@@ -1,0 +1,80 @@
+html
+  head
+    title=title
+    include bootstrapcall.pug
+    script(type="text/javascript").
+      function myFunction() {
+        document.getElementsByName("idParamModif").forEach(element => element.checked = false);
+        document.getElementsByName("idParamValid").forEach(element => element.checked = false);
+      }
+
+      function myFunction2() {
+        document.getElementsByName("idParam").forEach(element => element.checked = false);
+        document.getElementsByName("idParamValid").forEach(element => element.checked = false);
+      }
+
+      function myFunction3() {
+        document.getElementsByName("idParam").forEach(element => element.checked = false);
+        document.getElementsByName("idParamModif").forEach(element => element.checked = false);
+      }
+  body
+    include menu.pug
+    p(hidden)= username
+    p(hidden)= panier
+    h1(style="text-align: center;")= message
+    h2(style="text-align: center;") Liste des commandes
+    if existCommand === 1
+      div(class="container-flex", style="display: flex !important; align-content: center; justify-content: center;")
+        form(action="modifiecommande", method="POST")
+          div(class="table-responsive")
+            table(class="text-center table table-striped table-bordered")
+              colgroup
+                col()
+                col()
+                col(span="1" class="particulier")
+              thead(class="thead-light")
+                tr
+                  th(scope="col")
+                    input(class="button buttonSupprimer", type="submit", value="Supprimer", onclick="myFunction()")
+                  th(scope="col")
+                    input(class="button buttonModifier", type="submit", value="Modifier", onclick="myFunction2()", style="background-color: #12be46;")
+                  th(scope="col")
+                    input(class="button buttonValider", type="submit", value="Valider", onclick="myFunction3()", style="background-color: #1ffe46;")
+                  th(scope="col") <span class="particulier">le nom *</span>
+                  th(scope="col ") L'image
+                  th.efface(scope="col") La description
+                  th.efface(scope="col") L'option
+                  th.efface(scope="col") Le prix$
+                  th.efface(scope="col") Quantité
+                  th(scope="col") Prix par produit$
+                  th(scope="col") Date de commande
+              tbody
+                each item in Plates
+                  tr
+                    th(scope="row") 
+                      input(type="radio", id="idPow", name="idParam", value="S"+item.id, onclick="myFunction()")
+                    th(scope="row") 
+                      input(type="radio", id="idModif", name="idParamModif", value="M"+item.id, onclick="myFunction2()")
+                    th(scope="row") 
+                      input(type="checkbox", id="idValid"+item.id, name="idParamValid", value="V"+item.id, onclick="myFunction3()")
+                    td(class='color-column td_data particulier')= item.plat.nom
+                    td(class='color-column td_data ')
+                      img(src="/images/"+item.plat.image, alt="image"+item.plat.image, style='width:100px;height:50px;')
+                    td.efface(class="td_data")= item.plat.description
+                    td.efface(class='color-column td_data')= item.options
+                    td.efface(class="td_data")= item.prix
+                    td.efface(class="td_data")= item.quantite
+                    td(class="td_data")= (item.prix * item.quantite).toFixed(2)
+                    td(class="td_data")= item.createdAt
+              tfoot
+                tr
+                  td(class="td_data", style="font-weight: bold;") Total des commandes: $
+                    = Total
+                  td(colspan="7") Cocher un bouton et cliquer sur <span class="supprimer">Supprimer</span> pour supprimer un enregistrement ou 
+                    span <span class="modifier">Modifier</span> pour le modifier, 
+                    span <span class="modifier">Valider</span> pour compléter la commande et la retirer de la corbeille, 
+                    span <br><span class="particulier">Le nom</span> est suivi particulièrement
+    else
+      h2(style="text-align: center;") Désolé, il y a aucune commande faite par nos clients
+      
+include footer.pug

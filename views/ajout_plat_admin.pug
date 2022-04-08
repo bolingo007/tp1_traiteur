@@ -1,0 +1,72 @@
+html
+  head
+    title= title
+    <link rel="stylesheet" href="style.css">
+    include bootstrapcall.pug
+  body
+    include menu_admin.pug
+    p(hidden)= username
+    p &#160
+
+    h1(style="text-align: center;")= message
+    block content
+      div(class="container text-center" style="background-color:#ccffff;")
+        div(class="card" style="justify-content:center;" )
+          div(class="card-header" style="background-color:#e6ffff;")
+            h2(class="display-5") Veuillez confirmer la saisie du plat
+          div(class="card-body" style="background-color:#e6ffff;") 
+            form(action="historique" method="POST")
+              table(class="text-center table table-striped d-sm-none d-md-block" style="display: flex !important; align-content: center; justify-content: center;")
+                tbody(style="border: none !important;")
+                  tr
+                    td(class='color-column td_data') Le nom:
+                    td(class="td_data")
+                      input(type="text" name="nom" size="30", readonly, value=nom, maxlength="100")
+                  tr
+                    td(class='color-column td_data') La description:
+                    td(class="td_data")
+                      input(type="textarea" name="description" rows="2" ,cols="30", readonly, value=description)
+
+                  tr
+                    td(class='color-column td_data') Options:
+                    td(class="td_data")
+                      span.label non végétarienne: 
+                        if options === "non végétarienne"
+                          input(type="radio" id="nonvegetarienne" name="optionsc" value="non végétarienne", checked, required,disabled)
+                        else 
+                          input(type="radio" id="nonvegetarienne" name="optionsc" value="non végétarienne", required,disabled)
+                        span.label &#160; &#160; végétarienne: 
+                        if options === "végétarienne"
+                          input(type="radio" id="vegetarienne" name="optionsc" value="végétarienne", checked, required,disabled) 
+                        else 
+                          input(type="radio" id="vegetarienne" name="optionsc" value="végétarienne", required,disabled)
+                        input(type="hidden" name="options" value=options)
+                  tr
+                    td(class='color-column td_data') Le prix:
+                    td(class="td_data")
+                      input(type="text" name="prix" placeholder="9999.99" pattern="[0-9]+([\.,][0-9]+)?" size="30", readonly, value=prix, maxlength="100" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))")
+                  tr
+                    td(class='color-column td_data') Actif:
+                    td(class="td_data")
+                      span.label plat actif: 
+                        if actif === '1'
+                          input(type="radio" id="actifs" name="actifc" value=1, checked,disabled)
+                        else 
+                          input(type="radio" id="actifs" name="actifc" value=0,disabled)
+                        span.label &#160; &#160; plat inactif: 
+                        if actif === '0'
+                          input(type="radio" id="inactifs" name="actifc" value=1, checked,disabled)
+                        else 
+                          input(type="radio" id="inactifs" name="actifc" value=0,disabled)
+                        input(type="hidden" name="actif" value=actif)
+                  tr
+                    td(class='color-column td_data') Plat:
+                    td(class="td_data")= nom +"     "
+                      img(src="/images/"+image, alt="image"+image, style='width:100px;height:50px;')
+                      input(type="hidden" name="image" value=image)
+                  tr
+                    td(class="td_data" colspan="2")
+                      input(class="button buttonModifier" type="submit" name="bmodif" value="Confirmer ce plat")
+                      span.label &#160; &#160; 
+                      input(class="button buttonAnnuler" type="submit" name="bannule" value="Annuler")
+include footer_admin.pug

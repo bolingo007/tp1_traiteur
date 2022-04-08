@@ -1,0 +1,20 @@
+html
+  head
+    title=title
+    include bootstrapcall.pug
+    
+  body 
+  include menu_admin.pug
+  p(hidden)= username
+  
+  div(class="container text-center" style="background-color:#99ffff;")
+    div(class="card")
+      <img src='/images/logo.png' alt="logo" style='width:100px;height:auto;'>
+      div(class="card-body" style="background-color:#99ffff;") 
+        p Nous sommes situés au 999 rue Jean, Saint Jean
+    div(class="card")
+      div(class="card-header" style="background-color:#ccffff;")
+        h2(class="display-5") Un traiteur c'est fun!!
+      div(class="card-body" style="background-color:#99ffff;") 
+        img(class="card-img-top", src="/images/surf.jpg" alt="surf")
+  include footer_admin.pug

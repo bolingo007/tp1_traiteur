@@ -1,0 +1,116 @@
+html
+  head
+
+    title=title
+    script(type="text/javascript").
+      function Enlever_Required() {
+        let gestion = document.getElementsByName("image");
+        for (var i = 0; i < gestion.length; i++) {
+          gestion[i].removeAttribute("required");
+        }
+      }
+  body 
+    include menu.pug
+    p(hidden)= username
+    p(hidden)= panier
+    p &#160
+    
+    h1(style="text-align: center;")= message
+    block content
+        div(class="container text-center" style="background-color:#ccffff;")
+          div(class="card" style="justify-content:center;" )
+            div(class="card-header" style="background-color:#e6ffff;")
+              h2(class="display-5") Veuillez entrer des paramètres
+            div(class="card-body" style="background-color:#e6ffff;") 
+              form(action="liste_commandes",method="POST")
+                input(type="hidden" name="commande_id" value=Plates.id)
+                table(class="text-center table table-striped d-sm-none d-md-block" style="display: flex !important; align-content: center; justify-content: center;")
+                  tbody(style="border: none !important;")
+                      tr
+                        td(class='color-column td_data') Portion:
+                        td(class="td_data")
+                          if visibilite === "M"
+                            span.label individuelle: 
+                            if Plates.portion === "individuelle"
+                              input(type="radio", id="individuelle", name="portion", value="individuelle", checked, required) 
+                            else 
+                              input(type="radio", id="individuelle", name="portion", value="individuelle", required) 
+                            span.label &#160; &#160; pour deux: 
+                            if Plates.portion === "pour deux"
+                              input(type="radio", id="deux", name="portion", value="pour deux", checked, required)
+                            else
+                              input(type="radio", id="deux", name="portion", value="pour deux", required)
+                            span.label &#160; &#160; familiale: 
+                            if Plates.portion === "familiale"
+                              input(type="radio", id="familiale", name="portion", value="familiale", checked, required)
+                            else 
+                              input(type="radio", id="familiale", name="portion", value="familiale", required)
+                          else
+                            span.label individuelle: 
+                            if Plates.portion === "individuelle"
+                              input(type="radio", id="individuelle", name="portion", value="individuelle", checked,readonly, required) 
+                            else 
+                              input(type="radio", id="individuelle", name="portion", value="individuelle",readonly, required) 
+                            span.label &#160; &#160; pour deux: 
+                            if Plates.portion === "pour deux"
+                              input(type="radio", id="deux", name="portion", value="pour deux", checked,readonly, required)
+                            else
+                              input(type="radio", id="deux", name="portion", value="pour deux",readonly, required)
+                            span.label &#160; &#160; familiale: 
+                            if Plates.portion === "familiale"
+                              input(type="radio", id="familiale", name="portion", value="familiale", checked,readonly, required)
+                            else 
+                              input(type="radio", id="familiale", name="portion", value="familiale",readonly, required)
+
+                      tr
+                        td(class='color-column td_data') Options:
+                        td(class="td_data")
+                          span.label non végétarienne: 
+                          if visibilite === "M"
+                            if Plates.options === "non végétarienne"
+                              input(type="radio", id="nonvegetarienne", name="options", value="non végétarienne", checked, required)
+                            else 
+                              input(type="radio", id="nonvegetarienne", name="options", value="non végétarienne", required)
+                            span.label &#160; &#160; végétarienne: 
+                            if Plates.options === "végétarienne"
+                              input(type="radio", id="vegetarienne", name="options", value="végétarienne", checked, required) 
+                            else 
+                              input(type="radio", id="vegetarienne", name="options", value="végétarienne", required)
+                          else
+                            if Plates.options === "non végétarienne"
+                              input(type="radio", id="nonvegetarienne", name="options", value="non végétarienne", checked, required,disabled)
+                            else 
+                              input(type="radio", id="nonvegetarienne", name="options", value="non végétarienne", required,disabled)
+                            span.label &#160; &#160; végétarienne: 
+                            if Plates.options === "végétarienne"
+                              input(type="radio", id="vegetarienne", name="options", value="végétarienne", checked, required,disabled) 
+                            else 
+                              input(type="radio", id="vegetarienne", name="options", value="végétarienne", required,disabled)
+                      tr
+                        td(class='color-column td_data') Le prix:
+                        td(class="td_data")
+                          if visibilite === "M"
+                            input(type="text", name="prix",placeholder="9999.99", pattern="[0-9]+([\.,][0-9]+)?", size="30", value=Plates.prix, maxlength="100",onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))")
+                          else
+                            input(type="text", name="prix",placeholder="9999.99", pattern="[0-9]+([\.,][0-9]+)?", size="30", readonly, value=Plates.prix, maxlength="100",onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))")
+                      tr
+                        td(class='color-column td_data') Quantité:
+                        td(class="td_data")
+                          span.label Le nombre de plat (entre 1 et 10)*: 
+                          if visibilite === "M"
+                            input(type="number", name="quantite", min="1", max="10", value=Plates.quantite, required)
+                          else 
+                            input(type="number", name="quantite", min="1", max="10", value=Plates.quantite, required,disabled)
+                      tr
+                        td(class='color-column td_data') Plat:
+                        td(class="td_data")= Plates.plat.nom +"     "
+                          img(src="/images/"+Plates.plat.image, alt="image"+Plates.plat.image, style='width:100px;height:50px;')
+                      tr
+                        td(class="td_data", colspan="2")
+                          if visibilite === "M"
+                            input(class="button buttonModifier", type="submit", name="bmodif", value="Modifier ce plat", onclick="Enlever_Required();")
+                          if visibilite === "S"
+                            input(class="button buttonSupprimer", type="submit", name="bsupp", value="Supprimer ce plat", onclick="Enlever_Required();")
+                          span.label &#160; &#160; 
+                          input(class="button buttonAnnuler", type="submit", name="bannule", value="Annuler", onclick="Enlever_Required();")
+include footer_admin.pug

@@ -1,0 +1,26 @@
+html
+  head
+    title=title
+    include bootstrapcall.pug
+    
+  body 
+    include menu.pug
+    p &#160
+    h1(style="text-align: center;")= message
+ 
+    div(class="container text-center" style="background-color:black;")
+      div(class="card")
+        div(class="card-header" style="background-color:#ffb84d;")
+          h2(class="display-5") Connexion chez le traiteur
+        div(class="card-body" style="background-color:#fff5e6;") 
+          form(action="ajout_evaluation", method="POST")
+            div(style="padding-left:105px;")
+              span.label Utilisateur: 
+              input(type="text", name="login",placeholder="login", size="30", maxlength="100", required)
+              span.label &#160&#160 Mot de passe: 
+              input(type="text", name="motPasse",placeholder="mot de passe", size="30", maxlength="100", required)
+            br
+            br
+            input(class="button buttonConnexion" type="submit", value="Connexion au site")
+        div(class="card-footer")
+    include footer.pug

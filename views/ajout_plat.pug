@@ -1,0 +1,28 @@
+pug
+Text
+html
+  head
+    title= title
+    <link rel="stylesheet" href="style.css">
+    include bootstrapcall.pug
+  body
+    include menu_admin.pug
+    p(hidden)= username
+    p &#160
+    h1(style="text-align: center;") Paramètres saisis
+
+    div(class="container text-center" style="background-color:#ffebcc;")
+      div(class="card")
+        div(class="card-body" style="background-color:#ffebcc;") 
+          p(style="font-weight: bold;")= "Le nom: "+nom
+          p(style="font-weight: bold;")= "La description: "+description
+          p(style="font-weight: bold;")= "L'option: "+options
+          p(style="font-weight: bold;")= "Le prix: $"+prix
+          if actif === 1
+            p(style="font-weight: bold;")= "Actif?: Oui" 
+          else 
+            p(style="font-weight: bold;")= "Actif?: Non"
+          p(style="font-weight: bold;")= "L'image: "
+            img(src="/images/"+image, alt="image"+image, style='width:100px;height:50px;')
+ 
+  include footer.pug

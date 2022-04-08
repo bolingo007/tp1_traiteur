@@ -1,0 +1,13 @@
+html
+  head
+    title=title
+    link(rel="stylesheet" href="../css/styles4.css")
+  body 
+  include menu_admin.pug 
+  p(hidden)= username
+    
+    h1(style="text-align: center;")= message
+    div(class="container text-center" style="background-color:#99ffff;")
+      img(class="card-img-top", src="/images/surf.jpg" alt="surf")
+
+  include footer_admin.pug

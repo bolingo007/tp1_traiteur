@@ -1,0 +1,91 @@
+html
+  head
+    title=title
+    include bootstrapcall.pug
+    //- script(src='/code/enlargeimg.js')
+    script(type="text/javascript").
+      function myFunction() {
+        document.getElementsByName("idParamModif").forEach(element => element.checked = false);
+      }
+
+      function myFunction2() {
+        document.getElementsByName("idParam").forEach(element => element.checked = false);
+      }
+
+  body
+    include menu_admin.pug
+    p(hidden)= username
+    h1(style="text-align: center;")= message
+    h2(style="text-align: center;") Liste des plats
+    div(class="container-flex", style="display: flex !important; align-content: center; justify-content: center;")
+      form(action="modifieplat", method="POST")
+        div(class="table-responsive")
+          table(class="text-center table table-striped table-bordered d-sm-none d-md-block")
+            colgroup
+              col()
+              col()
+              col(span="1" class="particulier")
+            thead(class="thead-light")
+              tr
+                th(scope="col")
+                  input(class="button buttonSupprimer", type="submit", value="Supprimer", onclick="myFunction()")
+                th(scope="col")
+                  input(class="button buttonModifier", type="submit", value="Modifier", onclick="myFunction2()", style="background-color: #12be46;")
+                th(scope="col") <span class="particulier">le nom *</span>
+                th.efface(scope="col") La description
+                th(scope="col") L'option
+                th.efface(scope="col") Le prix
+                th(scope="col") Actif
+                th(scope="col ") L'image
+            tbody
+              each item in Plates
+                tr
+                  th(scope="row") 
+                    input(type="radio", id="idPow", name="idParam", value="S"+item.plat_id, onclick="myFunction()")
+                  th(scope="row") 
+                    input(type="radio", id="idModif", name="idParamModif", value="M"+item.plat_id, onclick="myFunction2()")
+                  td(class='color-column td_data particulier')= item.nom
+                  td.efface(class="td_data")= item.description
+                  td(class='color-column td_data')= item.options
+                  td.efface(class="td_data")= item.prix
+                  td(class="td_data")= item.actif
+                  td(class='color-column td_data ')
+                    img(src="/images/"+item.image, alt="image"+item.image, style='width:100px;height:50px;')
+            tfoot
+              tr
+                td(colspan="9") Cocher un bouton et cliquer sur <span class="supprimer">Supprimer</span> pour supprimer un enregistrement ou 
+                  span <span class="modifier">Modifier</span> pour le modifier, 
+                  span <br><span class="particulier">Le nom</span> est suivi particulièrement
+          table(class="text-center table table-striped table-bordered d-none d-block d-sm-block d-md-none")
+            colgroup
+              col()
+              col()
+              col(span="1" class="particulier")
+            thead(class="thead-light")
+              tr
+                th(scope="col")
+                  input(class="button buttonSupprimer", type="submit", value="Supprimer", onclick="myFunction()")
+                th(scope="col")
+                  input(class="button buttonModifier", type="submit", value="Modifier", onclick="myFunction2()", style="background-color: #12be46;")
+                th(scope="col") <span class="particulier">le nom *</span>
+                th(scope="col") La description
+                th(scope="col ") L'image
+            tbody
+              each item in Plates
+                tr
+                  th(scope="row") 
+                    input(type="radio", id="idPow", name="idParam", value="S"+item.plat_id, onclick="myFunction()")
+                  th(scope="row") 
+                    input(type="radio", id="idModif", name="idParamModif", value="M"+item.plat_id, onclick="myFunction2()")
+                  td(class='color-column td_data particulier')= item.nom
+                  td(class="td_data")= item.description
+                  td(class='color-column td_data ')
+                    img(src="/images/"+item.image, alt="image"+item.image, style='width:100px;height:50px;')
+            tfoot
+              tr
+                td(colspan="6") Cocher un bouton et cliquer sur <span class="supprimer">Supprimer</span> pour supprimer un enregistrement ou 
+                  span <span class="modifier">Modifier</span> pour le modifier, 
+                  span <br><span class="particulier">Le nom</span> est suivi particulièrement
+      
+include footer_admin.pug
+  

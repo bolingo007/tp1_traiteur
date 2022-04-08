@@ -1,0 +1,26 @@
+html
+  head
+    <link rel="stylesheet" href="css/styles4.css" />
+    include bootstrapcall.pug
+  body 
+
+    div(class="container-flex text-center" style="background-color:#ccf0f2;")
+      div(class="row")
+        div(class="col-1", style='width:100px;height:110px;')
+          img(class="boxLogo", src="images/logo.png", alt="logo du resto", style='width:100px;height:100px;')
+        div(class="col-8 row menu")
+          a(class="col-sm-12 col-lg-2 lienMenu" href='index_admin') Accueil administration
+          a(class="col-sm-12 col-lg-2 lienMenuApropos" href='apropos_admin') À propos
+          a(class="col-sm-12 col-lg-2 lienMenuHisto" href='historique') Afficher les plats saisis
+          a(class="col-sm-12 col-lg-2 lienSaisie" href='saisieplat') Saisir les plats du traiteur
+          a(class="col-sm-12 col-lg-2 lienMenuApropos" href='liste_commandes_admin') Gestion des commandes
+        div(class="col-2 row")
+          table(style="border: none; width:100%;")
+            tr
+              td(style="width:50%;")
+                a(class="" href='acceuil') Connexion
+              td
+                a(class="" href='acceuil')= username
+
+div#menu 
+

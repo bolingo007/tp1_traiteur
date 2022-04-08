@@ -1,0 +1,26 @@
+pug
+Text
+html
+  head
+    title= title
+    <link rel="stylesheet" href="style.css">
+    include bootstrapcall.pug
+  body
+    body
+    include menu.pug
+    p(hidden)= username
+    p(hidden)= (panier == null) ? "0" : panier
+    p &#160
+    h1(style="text-align: center;") Commande saisie
+
+    div(class="container text-center" style="background-color:#ffebcc;")
+      div(class="card")
+        div(class="card-body" style="background-color:#ffebcc;") 
+          p(style="font-weight: bold;")= "Le nom: "+nom
+          p(style="font-weight: bold;")= "Portion: "+portion
+          p(style="font-weight: bold;")= "L'option: "+options
+          p(style="font-weight: bold;")= "Le prix: "+prix
+          p(style="font-weight: bold;")= "Quantite: "+quantite
+          img(src="/images/"+image, class="card-img-top", alt="photo"+image, style='width:100px;height:100px;')
+
+  include footer.pug

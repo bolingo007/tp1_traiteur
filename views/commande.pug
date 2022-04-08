@@ -1,0 +1,46 @@
+html
+  head
+    title=title
+    include bootstrapcall.pug
+    script(src='/code/enlargeimg.js')
+  body
+    include menu.pug
+    p(hidden)= username
+    p(hidden)= panier
+    h1(style="text-align: center;")= message
+    h2(style="text-align: center;") Commande
+    form(class="container center", action="ajout_commande", method="POST")
+      div(class="col d-flex justify-content-center")
+        div(class="card", style="width: 36rem;")
+          div(class="card-body")
+              h4(class="card-title")=Plates.nom
+              img(src="/images/"+Plates.image, class="card-img-top", alt="photo"+Plates.image)
+              p(class="card-text")= Plates.description
+              p(class="card-text")= "$"+Plates.prix
+              input(type="hidden" name="plat_id" value=Plates.plat_id)
+              input(type="hidden" name="nom" value=Plates.nom)
+              input(type="hidden" name="prix" value=Plates.prix)
+              input(type="hidden" name="image" value=Plates.image)
+              input(type="hidden" name="dans_panier" value=1)
+              span.label Le nombre de plat (entre 1 et 10)*: 
+              input(type="number", name="quantite", min="1", max="10", required)
+              br
+              span.label 
+               b Portion: 
+              span.label &#160;individuelle 
+              input(type="radio", id="individuelle", name="portion", value="individuelle", checked, required) 
+              span.label &#160;pour deux 
+              input(type="radio", id="deux", name="portion", value="pour deux", required)
+              span.label &#160;familiale 
+              input(type="radio", id="familiale", name="portion", value="familiale", required)
+              br
+              span.label 
+               b Options:
+              span.label &#160;non végétarienne 
+              input(type="radio", id="nonvegetarienne", name="options", value="non végétarienne", checked, required)
+              span.label &#160;végétarienne 
+              input(type="radio", id="vegetarienne", name="options", value="végétarienne", required) 
+              br
+              input(class="button buttonAjouter", type="submit", value="ajouter au panier")
+include footer.pug
+  

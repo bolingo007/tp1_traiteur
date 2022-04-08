@@ -1,0 +1,116 @@
+html
+  head
+
+    title=title
+    script(type="text/javascript").
+      function Enlever_Required() {
+        //document.getElementsByName('image').removeAttribute('required');
+        let gestion = document.getElementsByName("image");
+        for (var i = 0; i < gestion.length; i++) {
+          gestion[i].removeAttribute("required");
+        }
+        //gestion.setAttribute("required","");
+      }
+  body 
+    include menu_admin.pug
+    p(hidden)= username
+    p &#160
+    
+    h1(style="text-align: center;")= message
+    block content
+        div(class="container text-center" style="background-color:#ccffff;")
+          div(class="card" style="justify-content:center;" )
+            div(class="card-header" style="background-color:#e6ffff;")
+              h2(class="display-5")= message2
+            div(class="card-body" style="background-color:#e6ffff;") 
+              form(action="historique",method="POST")
+                input(type="hidden" name="plat_id" value=Plates.plat_id)
+                
+                table(class="text-center table table-striped d-sm-none d-md-block" style="display: flex !important; align-content: center; justify-content: center;")
+                  tbody(style="border: none !important;")
+                      tr
+                        td(class='color-column td_data') Le nom:
+                        td(class="td_data")
+                          if visibilite === "M"
+                            input(type="text", name="nom",placeholder="saisir le nom du plat", pattern="^*[a-zA-Z0-9_.]*+@[a-zA-Z0-9_-]*+{2,4}*$ ", size="30", maxlength="100", value=Plates.nom, required)
+                          else
+                            input(type="text", name="nom",placeholder="saisir le nom du plat", pattern="^*[a-zA-Z0-9_.]*+@[a-zA-Z0-9_-]*+{2,4}*$ ", size="30", maxlength="100", value=Plates.nom, required,readonly)
+                      tr
+                        td(class='color-column td_data') La description:
+                        td(class="td_data")
+                          if visibilite === "M"
+                            textarea(name="description",placeholder="saisir la description du plat", rows="2" ,cols="30")=Plates.description
+                          else
+                            textarea(name="description",placeholder="saisir la description du plat", rows="2" ,cols="30", readonly)=Plates.description
+                      tr
+                        td(class='color-column td_data') Options:
+                        td(class="td_data")
+                          span.label non végétarienne: 
+                          if visibilite === "M"
+                            if Plates.options === "non végétarienne"
+                              input(type="radio", id="nonvegetarienne", name="options", value="non végétarienne", checked, required)
+                            else 
+                              input(type="radio", id="nonvegetarienne", name="options", value="non végétarienne", required)
+                            span.label &#160; &#160; végétarienne: 
+                            if Plates.options === "végétarienne"
+                              input(type="radio", id="vegetarienne", name="options", value="végétarienne", checked, required) 
+                            else 
+                              input(type="radio", id="vegetarienne", name="options", value="végétarienne", required)
+                          else
+                            if Plates.options === "non végétarienne"
+                              input(type="radio", id="nonvegetarienne", name="options", value="non végétarienne", checked, required,disabled)
+                            else 
+                              input(type="radio", id="nonvegetarienne", name="options", value="non végétarienne", required,disabled)
+                            span.label &#160; &#160; végétarienne: 
+                            if Plates.options === "végétarienne"
+                              input(type="radio", id="vegetarienne", name="options", value="végétarienne", checked, required,disabled) 
+                            else 
+                              input(type="radio", id="vegetarienne", name="options", value="végétarienne", required,disabled)
+                      tr
+                        td(class='color-column td_data') Le prix:
+                        td(class="td_data")
+                          if visibilite === "M"
+                            input(type="text", name="prix",placeholder="9999.99", pattern="[0-9]+([\.,][0-9]+)?", size="30", value=Plates.prix, maxlength="100",onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))")
+                          else
+                            input(type="text", name="prix",placeholder="9999.99", pattern="[0-9]+([\.,][0-9]+)?", size="30", readonly, value=Plates.prix, maxlength="100",onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))")
+                      tr
+                        td(class='color-column td_data') Actif?:
+                        td(class="td_data")
+                          span.label plat actif: 
+                          if visibilite === "M"
+                            if Plates.actif === true
+                              input(type="radio", id="actif", name="actif", value=1, checked, required)
+                            else 
+                              input(type="radio", id="actif", name="actif", value=1, required)
+                            span.label &#160&#160plat inactif: 
+                            if Plates.actif === false
+                              input(type="radio", id="inactif", name="actif", value=0, checked, required)
+                            else 
+                              input(type="radio", id="inactif", name="actif", value=0, required)
+                          else
+                            if Plates.actif === true
+                              input(type="radio", id="actif", name="actif", value=1, checked, required,disabled)
+                            else 
+                              input(type="radio", id="actif", name="actif", value=1, required,disabled)
+                            span.label &#160&#160plat inactif: 
+                            if Plates.actif === false
+                              input(type="radio", id="inactif", name="actif", value=0, checked, required,disabled)
+                            else 
+                              input(type="radio", id="inactif", name="actif", value=0, required,disabled)
+                      tr
+                        td(class='color-column td_data') Sélectionner une photo du plat:
+                        td(class="td_data")
+                          if visibilite === "M"
+                            input(type="file", name="image", size="60", accept="image/png, image/jpeg", required)
+                          else
+                            input(type="file", name="image", size="60", accept="image/png, image/jpeg", required,disabled)
+                          img(src="/images/"+Plates.image, alt="image"+Plates.image, style='width:100px;height:50px;')
+                      tr
+                        td(class="td_data", colspan="2")
+                          if visibilite === "M"
+                            input(class="button buttonModifier", type="submit", name="bmodif", value="Modifier ce plat", onclick="Enlever_Required();")
+                          if visibilite === "S"
+                            input(class="button buttonSupprimer", type="submit", name="bsupp", value="Supprimer ce plat", onclick="Enlever_Required();")
+                          span.label &#160; &#160; 
+                          input(class="button buttonAnnuler", type="submit", name="bannule", value="Annuler", onclick="Enlever_Required();")
+include footer_admin.pug

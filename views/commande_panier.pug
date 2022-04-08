@@ -1,0 +1,69 @@
+html
+  head
+    title=title
+    include bootstrapcall.pug
+    script(src='/code/enlargeimg.js')
+  body
+    include menu.pug
+    p(hidden)= username
+    p(hidden)= panier
+    h1(style="text-align: center;")= message
+    h2(style="text-align: center;") Commande
+    form(class="container center", action="commande_panier", method="POST")
+      div(class="table-responsive")
+        table(class="text-center table table-striped table-bordered d-sm-none d-md-block")
+          colgroup
+            col()
+            col()
+            col(span="1" class="particulier")
+          thead(class="thead-light")
+            tr
+              th(scope="col")
+                input(class="button buttonSupprimer", type="submit", value="Supprimer")
+              th(scope="col") <span class="particulier">le nom *</span>
+              th(scope="col") La description
+              th(scope="col") Portion
+              th(scope="col") L'option
+              th(scope="col") Le prix
+              th(scope="col") Actif
+              th(scope="col ") L'image
+          tbody
+            each item in Plates
+              tr
+                th(scope="row") 
+                  input(type="radio", id="idPow", name="idParam", value=item.id)
+                td(class='color-column td_data particulier')= item.nom
+                td(class="td_data")= item.description
+                td(class='color-column td_data')= item.portion
+                td(class='color-column td_data')= item.options
+                td(class="td_data")= item.prix
+                td(class="td_data")= item.actif
+                td(class='color-column td_data ')
+                  img(src="/images/"+item.image, alt="logo", style='width:100px;height:50px;')
+          tfoot
+            tr
+              td(colspan="9") Cocher un bouton et cliquer sur <span class="supprimer">Supprimer</span> pour supprimer un enregistrement
+                span <br><span class="particulier">Le nom</span> est suivi particulièrement
+        table(class="text-center table table-striped table-bordered d-md-none")
+          colgroup
+            col()
+            col()
+            col(span="1" class="particulier")
+          thead(class="thead-light")
+            tr
+              th(scope="col")
+                input(class="button buttonSupprimer", type="submit", value="Supprimer")
+              th(scope="col") <span class="particulier">le nom *</span>
+          tbody
+            each item in Plates
+              tr
+                th(scope="row") 
+                  input(type="radio", id="idPow", name="idParam", value=item.id)
+                td(class='color-column td_data particulier')= item.nom
+          tfoot
+            tr
+              td(colspan="4") Cocher un bouton et cliquer sur <span class="supprimer">Supprimer</span> pour supprimer un enregistrement
+                span <br><span class="particulier">Le Nitrate (NO3)</span> est suivi particulièrement
+
+include footer.pug
+  

@@ -1,0 +1,30 @@
+html
+  head
+    <link rel="stylesheet" href="css/styles4.css" />
+    include bootstrapcall.pug
+  body 
+
+    div(class="container-flex text-center" style="background-color:#ccffff;")
+      div(class="row")
+        div(class="col-1", style='width:100px;height:110px;')
+          img(class="boxLogo", src="images/logo.png", alt="logo du resto", style='width:100px;height:100px;')
+        div(class="col-8 row menu")
+          a(class="col-sm-12 col-lg-2 lienMenu" href='index') Accueil
+          a(class="col-sm-12 col-lg-2 lienMenuApropos" href='apropos') À propos
+          a(class="col-sm-12 col-lg-2 lienMenuHisto" href='liste_commandes') Afficher les plats commandés
+          a(class="col-sm-12 col-lg-2 lienMenuHisto" href='plataffiche') Commander vos plats
+        div(class="col-3 row")
+          table(style="border: none; width:100%;")
+            tr
+              td(style="width:50%;")
+                a(class="" href='acceuil') Connexion
+              td
+                a(class="" href='acceuil')= username
+              td
+                a(class="" href='liste_commandes')
+                  div(class="panier")
+                    img(class="", src="images/panier1.jpg", alt="panier", style='width:60px;height:60px;')
+                    p(class="text-danger font-weight-bold text")= panier
+
+div#menu 
+

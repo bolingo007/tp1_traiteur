@@ -1,0 +1,24 @@
+html
+  head
+    title=title
+    include bootstrapcall.pug
+  body
+    include menu.pug
+    p(hidden)= username
+    p(hidden)= panier
+    h1(style="text-align: center;")= message
+    div(class="container")
+        div(class="row")
+          each item in Plates
+            div(class="col-sm-6 col-lg-4 mb-3")
+                div(class="card mb-3 h-100")
+                    div(class="card-body")
+                        h4(class="card-title")=item.nom
+                        a(href="commande?plat_id="+item.plat_id)
+                          img(src="/images/"+item.image, class="card-img-top", alt="photo"+item.image)
+                          p(class="card-text")= item.description
+                        p(class="card-text")= "$"+item.prix
+                        br
+                        p(class="card-text") 
+                          small(class="text-muted") Cliquer pour choisir
+  include footer.pug
